@@ -7,6 +7,8 @@ export type Properties = {
 }[];
 
 export const compareAndWrite = (folderName: string, properties: Properties) => {
+  console.log(process.env.GMAIL_USERNAME);
+
   const existingData = getFileContent(folderName);
   const path = `./src/scrapers/${folderName}/results.json`;
 

@@ -20,6 +20,7 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@types/nodemailer": "^6.4.17",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
@@ -28,5 +29,10 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.22.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "nodemailer": "^6.10.0",
+    "puppeteer": "^24.1.1"
   }
 }
