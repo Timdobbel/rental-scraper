@@ -1,3 +1,3 @@
 import { LaunchOptions } from 'puppeteer';
 
-export const launchOptions: LaunchOptions = { headless: false };
+export const launchOptions: LaunchOptions = { headless: true };

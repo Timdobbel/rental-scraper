@@ -1,5 +1,7 @@
 import fs from 'fs';
 import chalk from 'chalk';
+import { sendEmail } from './mailUtils';
+import { getRandomEmoji } from './logger';
 
 export type Properties = {
   title: string;
@@ -7,8 +9,6 @@ export type Properties = {
 }[];
 
 export const compareAndWrite = (folderName: string, properties: Properties) => {
-  console.log(process.env.GMAIL_USERNAME);
-
   const existingData = getFileContent(folderName);
   const path = `./src/scrapers/${folderName}/results.json`;
 
@@ -29,18 +29,20 @@ export const compareAndWrite = (folderName: string, properties: Properties) => {
     (item) => !existingTitles.has(item.title),
   );
 
+  let emailContent = '';
+
   if (removedEntries.length > 0 || addedEntries.length > 0) {
     hasChanges = true;
-    removedEntries.forEach((item) =>
-      console.log(
-        chalk.red(`Entry removed: ${item.title} (Status: ${item.status})`),
-      ),
-    );
-    addedEntries.forEach((item) =>
-      console.log(
-        chalk.green(`Entry added: ${item.title} (Status: ${item.status})`),
-      ),
-    );
+    removedEntries.forEach((item) => {
+      const message = `Verwijderd: ${item.title} (Status: ${item.status})`;
+      console.log(chalk.red(message));
+      emailContent += `${message}\n`;
+    });
+    addedEntries.forEach((item) => {
+      const message = `Toegevoegd: ${item.title} (Status: ${item.status})`;
+      console.log(chalk.green(message));
+      emailContent += `${message}\n`;
+    });
   }
 
   for (let i = 0; i < properties.length; i++) {
@@ -48,12 +50,11 @@ export const compareAndWrite = (folderName: string, properties: Properties) => {
       (item) => item.title === properties[i].title,
     );
     if (existingItem && existingItem.status !== properties[i].status) {
-      console.log(
-        chalk.blue(`Change detected in entry:
-          - Title: ${chalk.bold(properties[i].title)}
-          - Status: ${chalk.red(existingItem.status)} -> ${chalk.green(properties[i].status)}
-        `),
-      );
+      const message = `Wijziging in de volgende woning:
+        - Title: ${properties[i].title}
+        - Status: ${existingItem.status} -> ${properties[i].status}`;
+      console.log(chalk.blue(message));
+      emailContent += `${message}\n`;
       hasChanges = true;
     }
   }
@@ -61,6 +62,10 @@ export const compareAndWrite = (folderName: string, properties: Properties) => {
   if (hasChanges) {
     console.log(chalk.green(`Changes detected. Updating file: ${path}`));
     writeFileContent(folderName, properties);
+    sendEmail(
+      emailContent,
+      `Verandering op website van ${folderName.toLowerCase()}! ${getRandomEmoji()}`,
+    );
   } else {
     console.log(chalk.gray(`No changes detected. File remains unchanged.`));
   }

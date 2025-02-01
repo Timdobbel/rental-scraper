@@ -10,7 +10,10 @@ dotenv.config();
  *  - Schedules scrapers
  */
 const main = async () => {
-  dcWonenScraper();
+  // Run dcWonenScraper every 20 seconds
+  setInterval(() => {
+    dcWonenScraper();
+  }, 20000); // 20 seconds in milliseconds
 };
 
 main();
