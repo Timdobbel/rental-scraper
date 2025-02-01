@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import fs from 'fs';
 
 const emojis = ['🎉', '🚀', '🔥', '💃', '💅', '😎'];
 
@@ -25,6 +26,9 @@ export function scraperCompletedLog(
     );
 }
 
-export function scraperLog(message: string) {
-  console.log();
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const logErrorToFile = (error: any, logFilePath: string) => {
+  const timestamp = new Date().toISOString();
+  const errorMessage = `${timestamp} - Error: ${error.message || error}\nStack: ${error.stack || 'No stack trace available'}\n\n`;
+  fs.appendFileSync(logFilePath, errorMessage, 'utf8');
+};

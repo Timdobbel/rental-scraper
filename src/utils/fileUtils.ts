@@ -13,7 +13,9 @@ export const compareAndWrite = (folderName: string, properties: Properties) => {
   const path = `./src/scrapers/${folderName}/results.json`;
 
   if (!existingData) {
-    console.log(chalk.yellow(`No existing data found. Writing new file.`));
+    console.log(
+      chalk.yellow(`[${folderName}] No existing data found. Writing new file.`),
+    );
     writeFileContent(folderName, properties);
     return;
   }
@@ -35,12 +37,12 @@ export const compareAndWrite = (folderName: string, properties: Properties) => {
     hasChanges = true;
     removedEntries.forEach((item) => {
       const message = `Verwijderd: ${item.title} (Status: ${item.status})`;
-      console.log(chalk.red(message));
+      console.log(chalk.red(`[${folderName}] ${message}`));
       emailContent += `${message}\n`;
     });
     addedEntries.forEach((item) => {
       const message = `Toegevoegd: ${item.title} (Status: ${item.status})`;
-      console.log(chalk.green(message));
+      console.log(chalk.green(`[${folderName}] ${message}`));
       emailContent += `${message}\n`;
     });
   }
@@ -53,21 +55,27 @@ export const compareAndWrite = (folderName: string, properties: Properties) => {
       const message = `Wijziging in de volgende woning:
         - Title: ${properties[i].title}
         - Status: ${existingItem.status} -> ${properties[i].status}`;
-      console.log(chalk.blue(message));
+      console.log(chalk.blue(`[${folderName}] ${message}`));
       emailContent += `${message}\n`;
       hasChanges = true;
     }
   }
 
   if (hasChanges) {
-    console.log(chalk.green(`Changes detected. Updating file: ${path}`));
+    console.log(
+      chalk.green(`[${folderName}] Changes detected. Updating file: ${path}`),
+    );
     writeFileContent(folderName, properties);
     sendEmail(
       emailContent,
       `Verandering op website van ${folderName.toLowerCase()}! ${getRandomEmoji()}`,
     );
   } else {
-    console.log(chalk.gray(`No changes detected. File remains unchanged.`));
+    console.log(
+      chalk.gray(
+        `[${folderName}] No changes detected. File remains unchanged.`,
+      ),
+    );
   }
 };
 
@@ -80,7 +88,7 @@ export const getFileContent = (folderName: string) => {
   } catch {
     console.log(
       chalk.redBright(
-        `${chalk.italic('Error reading file from:')} ${chalk.bold(path)}`,
+        `[${folderName}] ${chalk.italic('Error reading file from:')} ${chalk.bold(path)}`,
       ),
     );
     return null;
@@ -104,7 +112,7 @@ export const writeFileContent = (
   } catch {
     console.log(
       chalk.redBright(
-        `${chalk.italic('Error trying to write file to:')} ${chalk.bold(path)}`,
+        `[${folderName}] ${chalk.italic('Error trying to write file to:')} ${chalk.bold(path)}`,
       ),
     );
   }
