@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import { logErrorToFile, scraperCompletedLog } from '../../utils/logger';
-import { launchOptions, minSize } from '../../config';
+import { launchOptions, settings } from '../../config';
 import { compareAndWrite } from '../../utils/fileUtils';
 import path from 'path';
 
@@ -19,7 +19,7 @@ export const maxxhurenScraper = async () => {
       },
     );
 
-    const properties = await page.evaluate((minSize) => {
+    const properties = await page.evaluate((settings) => {
       return Array.from(document.querySelectorAll('.box-object'))
         .map((listing) => {
           const titleElement = listing.querySelector('a');
@@ -43,12 +43,12 @@ export const maxxhurenScraper = async () => {
           // Convert size to int and remove m2
           const sizeInt = parseInt(size.split(' ')[0], 10);
 
-          if (sizeInt <= minSize) return;
+          if (sizeInt <= settings.minSize) return;
 
           return { title, status };
         })
         .filter((property) => property !== undefined);
-    }, minSize);
+    }, settings);
 
     await browser.close();
     compareAndWrite(folder, properties);

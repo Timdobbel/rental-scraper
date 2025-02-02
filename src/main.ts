@@ -6,6 +6,8 @@ import { pandomoScraper } from './scrapers/pandomo/scraper';
 import { tuitmanvastgoedScraper } from './scrapers/tuitmanvastgoed/scraper';
 import { campusGroningenScraper } from './scrapers/campusGroningen/scraper';
 import { maxxhurenScraper } from './scrapers/maxxhuren/scraper';
+import { eentweedrieWonenScraper } from './scrapers/123wonen/scraper';
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -32,12 +34,14 @@ const scrapers = [
   dcWonenScraper,
   tuitmanvastgoedScraper,
   campusGroningenScraper,
+  eentweedrieWonenScraper,
 ];
 
 const runScrapers = async () => {
   for (const scraper of scrapers) {
     await scraper();
   }
+
   printBreakline(count++);
 
   // Schedule next execution only after completion
@@ -45,7 +49,8 @@ const runScrapers = async () => {
 };
 
 const main = async () => {
-  await runScrapers(); // Start immediately
+  // await runScrapers(); // Start immediately
+  eentweedrieWonenScraper();
 };
 
 main();
