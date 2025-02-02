@@ -59,7 +59,7 @@ export const grunoVerhuurScraper = async () => {
         .filter((property) => property !== undefined);
     }, settings);
 
-    // await browser.close();
+    await browser.close();
     compareAndWrite(folder, properties);
     scraperCompletedLog(folder);
   } catch (err) {
