@@ -51,8 +51,6 @@ export const grunoVerhuurScraper = async () => {
             ? statusElement.innerText.toLowerCase()
             : 'waarschijnlijk verhuurd';
 
-          console.log(status);
-
           return {
             title,
             status,
@@ -60,8 +58,6 @@ export const grunoVerhuurScraper = async () => {
         })
         .filter((property) => property !== undefined);
     }, settings);
-
-    console.log(properties);
 
     // await browser.close();
     compareAndWrite(folder, properties);

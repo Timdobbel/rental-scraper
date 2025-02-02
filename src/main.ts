@@ -51,8 +51,7 @@ const runScrapers = async () => {
 };
 
 const main = async () => {
-  // await runScrapers(); // Start immediately
-  grunoVerhuurScraper();
+  await runScrapers();
 };
 
 main();
