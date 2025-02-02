@@ -24,7 +24,7 @@ export const campusGroningenScraper = async () => {
       const newPage = await browser.newPage();
       await newPage.goto(link, {
         waitUntil: 'domcontentloaded',
-        timeout: 50000,
+        timeout: 10000,
       });
 
       try {
@@ -32,11 +32,12 @@ export const campusGroningenScraper = async () => {
           '.table.table-condensed button',
           (button) => button.innerText.trim(),
         );
+
         if (status === 'Deelnemen' || status === 'Volgeboekt') {
           results.push({ title: link, status });
         }
       } catch {
-        console.warn(`No status button found for ${link}`);
+        results.push({ title: link, status: 'Onbekend' });
       }
 
       await newPage.close();

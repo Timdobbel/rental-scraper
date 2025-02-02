@@ -1,13 +1,11 @@
 import { groningenVastgoed } from './scrapers/050vastgoed/scraper';
-import {
-  dcWonenScraper,
-  grunoVerhuurScraper,
-} from './scrapers/dcWonen/scraper';
+import { dcWonenScraper } from './scrapers/dcWonen/scraper';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import { pandomoScraper } from './scrapers/pandomo/scraper';
 import { tuitmanvastgoedScraper } from './scrapers/tuitmanvastgoed/scraper';
 import { campusGroningenScraper } from './scrapers/campusGroningen/scraper';
+import { maxxhurenScraper } from './scrapers/maxxhuren/scraper';
 // Load environment variables from .env file
 dotenv.config();
 
@@ -26,16 +24,28 @@ const printBreakline = (count: number) => {
   );
 };
 
+// List of all scrapers
+const scrapers = [
+  maxxhurenScraper,
+  pandomoScraper,
+  groningenVastgoed,
+  dcWonenScraper,
+  tuitmanvastgoedScraper,
+  campusGroningenScraper,
+];
+
+const runScrapers = async () => {
+  for (const scraper of scrapers) {
+    await scraper();
+  }
+  printBreakline(count++);
+
+  // Schedule next execution only after completion
+  setTimeout(runScrapers, 10000);
+};
+
 const main = async () => {
-  setInterval(async () => {
-    await pandomoScraper();
-    await groningenVastgoed();
-    await dcWonenScraper();
-    await tuitmanvastgoedScraper();
-    await campusGroningenScraper();
-    printBreakline(count);
-    count++;
-  }, 50000);
+  await runScrapers(); // Start immediately
 };
 
 main();

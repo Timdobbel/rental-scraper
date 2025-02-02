@@ -4,17 +4,17 @@ import { launchOptions } from '../../config';
 import { compareAndWrite } from '../../utils/fileUtils';
 import path from 'path';
 
-const folder = 'grunoVerhuur';
+const folder = 'dcWonen';
 
-export const grunoVerhuurScraper = async () => {
+export const dcWonenScraper = async () => {
   try {
     const browser = await puppeteer.launch(launchOptions);
     const page = await browser.newPage();
 
     // Navigate to the page
-    await page.goto('https://www.grunoverhuur.nl/woningaanbod/huur', {
+    await page.goto('https://dcwonen.nl/appartement-huren-groningen/', {
       waitUntil: 'domcontentloaded',
-      timeout: 20000,
+      timeout: 30000,
     });
 
     // Extract data
@@ -37,9 +37,9 @@ export const grunoVerhuurScraper = async () => {
     });
     await browser.close();
     compareAndWrite(folder, properties);
-    scraperCompletedLog(folder);
+    scraperCompletedLog('DC wonen');
   } catch (err) {
-    scraperCompletedLog(folder, true);
+    scraperCompletedLog('DC wonen', true);
     logErrorToFile(err, path.join(__dirname, 'scraper_errors.log'));
     console.log(`[${folder}] ${err}`);
   }
