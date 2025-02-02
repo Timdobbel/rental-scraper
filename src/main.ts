@@ -1,5 +1,4 @@
 import { groningenVastgoed } from './scrapers/050vastgoed/scraper';
-import { campusScraper } from './scrapers/campusScraper';
 import {
   dcWonenScraper,
   grunoVerhuurScraper,
@@ -8,6 +7,7 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import { pandomoScraper } from './scrapers/pandomo/scraper';
 import { tuitmanvastgoedScraper } from './scrapers/tuitmanvastgoed/scraper';
+import { campusGroningenScraper } from './scrapers/campusGroningen/scraper';
 // Load environment variables from .env file
 dotenv.config();
 
@@ -27,18 +27,15 @@ const printBreakline = (count: number) => {
 };
 
 const main = async () => {
-  grunoVerhuurScraper();
-
-  // setInterval(async () => {
-  //   await pandomoScraper();
-  //   await groningenVastgoed();
-  //   await dcWonenScraper();
-  //   await tuitmanvastgoedScraper();
-
-  //   printBreakline(count);
-
-  //   count++;
-  // }, 30000);
+  setInterval(async () => {
+    await pandomoScraper();
+    await groningenVastgoed();
+    await dcWonenScraper();
+    await tuitmanvastgoedScraper();
+    await campusGroningenScraper();
+    printBreakline(count);
+    count++;
+  }, 50000);
 };
 
 main();
