@@ -15,16 +15,13 @@ dotenv.config();
 let count = 1;
 
 const main = async () => {
-  pandomoScraper();
-
-  // groningenVastgoed();
-  // Run dcWonenScraper every 20 seconds
   setInterval(() => {
     console.log(chalk.dim.italic(`Iteration: ${count}`));
-    // groningenVastgoed();
-    // dcWonenScraper();
+    pandomoScraper();
+    groningenVastgoed();
+    dcWonenScraper();
     count++;
-  }, 60000); // 60 seconds in milliseconds
+  }, 60000);
 };
 
 main();

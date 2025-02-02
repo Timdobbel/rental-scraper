@@ -13,7 +13,7 @@ export const sendEmail = (emailContent: string, subject: string) => {
 
   const mailOptions = {
     from: 'xediixx@gmail.com',
-    to: ['timvdd@hotmail.com'],
+    to: ['timvdd@hotmail.com', 'familydice@ziggo.nl'],
     subject: subject,
     text: emailContent,
   };
