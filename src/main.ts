@@ -1,6 +1,9 @@
 import { groningenVastgoed } from './scrapers/050vastgoed/scraper';
 import { campusScraper } from './scrapers/campusScraper';
-import { dcWonenScraper } from './scrapers/dcWonen/scraper';
+import {
+  dcWonenScraper,
+  grunoVerhuurScraper,
+} from './scrapers/dcWonen/scraper';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import { pandomoScraper } from './scrapers/pandomo/scraper';
@@ -15,16 +18,27 @@ dotenv.config();
 
 let count = 1;
 
-const main = async () => {
-  tuitmanvastgoedScraper();
+const printBreakline = (count: number) => {
+  console.log(
+    chalk.yellowBright(
+      `\n---->> Scrapers Complete! Iteration #${count} <<----`,
+    ),
+  );
+};
 
-  // setInterval(() => {
-  //   console.log(chalk.dim.italic(`Iteration: ${count}`));
-  //   pandomoScraper();
-  //   groningenVastgoed();
-  //   dcWonenScraper();
+const main = async () => {
+  grunoVerhuurScraper();
+
+  // setInterval(async () => {
+  //   await pandomoScraper();
+  //   await groningenVastgoed();
+  //   await dcWonenScraper();
+  //   await tuitmanvastgoedScraper();
+
+  //   printBreakline(count);
+
   //   count++;
-  // }, 60000);
+  // }, 30000);
 };
 
 main();
