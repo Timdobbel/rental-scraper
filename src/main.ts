@@ -4,6 +4,7 @@ import { dcWonenScraper } from './scrapers/dcWonen/scraper';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import { pandomoScraper } from './scrapers/pandomo/scraper';
+import { tuitmanvastgoedScraper } from './scrapers/tuitmanvastgoed/scraper';
 // Load environment variables from .env file
 dotenv.config();
 
@@ -15,13 +16,15 @@ dotenv.config();
 let count = 1;
 
 const main = async () => {
-  setInterval(() => {
-    console.log(chalk.dim.italic(`Iteration: ${count}`));
-    pandomoScraper();
-    groningenVastgoed();
-    dcWonenScraper();
-    count++;
-  }, 60000);
+  tuitmanvastgoedScraper();
+
+  // setInterval(() => {
+  //   console.log(chalk.dim.italic(`Iteration: ${count}`));
+  //   pandomoScraper();
+  //   groningenVastgoed();
+  //   dcWonenScraper();
+  //   count++;
+  // }, 60000);
 };
 
 main();
