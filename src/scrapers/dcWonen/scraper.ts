@@ -8,8 +8,6 @@ const folder = 'dcWonen';
 
 export const dcWonenScraper = async () => {
   try {
-    throw 'whoopsie';
-
     const browser = await puppeteer.launch(launchOptions);
     const page = await browser.newPage();
 
@@ -43,6 +41,6 @@ export const dcWonenScraper = async () => {
   } catch (err) {
     scraperCompletedLog('DC wonen', true);
     logErrorToFile(err, path.join(__dirname, 'scraper_errors.log'));
-    console.log(err);
+    console.log(`[${folder}] ${err}`);
   }
 };
