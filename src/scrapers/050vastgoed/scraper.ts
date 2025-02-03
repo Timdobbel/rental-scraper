@@ -47,9 +47,9 @@ export const groningenVastgoed = async () => {
 
     await browser.close();
     compareAndWrite(folder, properties);
-    scraperCompletedLog('050Vastgoed');
+    scraperCompletedLog(folder);
   } catch (err) {
-    scraperCompletedLog('050Vastgoed', true);
+    scraperCompletedLog(folder, true);
     logErrorToFile(err, path.join(__dirname, 'scraper_errors.log'));
     console.log(`[${folder}] ${err}`);
   }
