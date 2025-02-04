@@ -55,7 +55,12 @@ const runScrapers = async () => {
 };
 
 const main = async () => {
-  await runScrapers();
+  if (process.env.NODE_ENV !== 'development') {
+    await runScrapers();
+  } else {
+    // Debugging a single scraper:
+    scrapers[0]();
+  }
 };
 
 main();
