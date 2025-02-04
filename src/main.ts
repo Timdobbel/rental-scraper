@@ -9,6 +9,7 @@ import { maxxhurenScraper } from './scrapers/maxxhuren/scraper';
 import { eentweedrieWonenScraper } from './scrapers/123wonen/scraper';
 import { grunoVerhuurScraper } from './scrapers/grunoVerhuur/scraper';
 import { househuntingScraper } from './scrapers/househunting/scraper';
+import { bultenvastgoedScaper } from './scrapers/bultenvastgoed/scraper';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -38,6 +39,7 @@ const scrapers = [
   campusGroningenScraper,
   eentweedrieWonenScraper,
   grunoVerhuurScraper,
+  bultenvastgoedScaper,
 ];
 
 const runScrapers = async () => {
@@ -52,8 +54,8 @@ const runScrapers = async () => {
 };
 
 const main = async () => {
-  // await runScrapers();
-  househuntingScraper();
+  await runScrapers();
+  await bultenvastgoedScaper();
 };
 
 main();
