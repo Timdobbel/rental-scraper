@@ -40,6 +40,7 @@ const scrapers = [
   eentweedrieWonenScraper,
   grunoVerhuurScraper,
   bultenvastgoedScaper,
+  househuntingScraper,
 ];
 
 const runScrapers = async () => {
@@ -50,7 +51,7 @@ const runScrapers = async () => {
   printBreakline(count++);
 
   // Schedule next execution only after completion
-  setTimeout(runScrapers, 10000);
+  setTimeout(runScrapers, 45000);
 };
 
 const main = async () => {

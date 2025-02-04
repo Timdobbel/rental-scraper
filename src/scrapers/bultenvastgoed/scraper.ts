@@ -29,7 +29,7 @@ export const bultenvastgoedScaper = async () => {
         const sizeElement = card.querySelector('.propertylist_feature-text');
 
         return {
-          title: titleElement ? titleElement.innerText.trim() : 'Unknown',
+          title: titleElement ? titleElement.href : 'No link',
           status: '-',
           //   link: titleElement ? titleElement.href : 'No link',
           //   price: priceElement ? priceElement.innerText.trim() : 'No price',
