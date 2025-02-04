@@ -31,6 +31,8 @@ const printBreakline = (count: number) => {
 
 // List of all scrapers
 const scrapers = [
+  bultenvastgoedScaper,
+  grunoVerhuurScraper,
   maxxhurenScraper,
   pandomoScraper,
   groningenVastgoed,
@@ -38,8 +40,6 @@ const scrapers = [
   tuitmanvastgoedScraper,
   campusGroningenScraper,
   eentweedrieWonenScraper,
-  grunoVerhuurScraper,
-  bultenvastgoedScaper,
   househuntingScraper,
 ];
 
