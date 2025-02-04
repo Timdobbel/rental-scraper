@@ -55,7 +55,6 @@ const runScrapers = async () => {
 
 const main = async () => {
   await runScrapers();
-  await bultenvastgoedScaper();
 };
 
 main();
