@@ -30,9 +30,10 @@ const printBreakline = (count: number) => {
 };
 
 // List of all scrapers
+// `npm run dev` only runs the first one
 const scrapers = [
-  bultenvastgoedScaper,
   grunoVerhuurScraper,
+  bultenvastgoedScaper,
   maxxhurenScraper,
   pandomoScraper,
   groningenVastgoed,

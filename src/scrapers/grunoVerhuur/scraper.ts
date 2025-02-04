@@ -24,12 +24,16 @@ export const grunoVerhuurScraper = async () => {
       return Array.from(document.querySelectorAll('.objectcontainer'))
         .map((listing) => {
           const titleElement = listing.querySelector('a');
+          const sizeString = listing.querySelector('.object_sqfeet')?.innerText;
+          const match = sizeString?.match(/(\d+)\s*m²/);
+          const sizeNumber = match ? parseInt(match[1], 10) : null;
+          console.log(sizeNumber);
 
           const title = titleElement
             ? 'https://www.grunoverhuur.nl' + titleElement.getAttribute('href')
             : 'No link';
 
-          if (!title) return null;
+          if (!title || !sizeNumber) return;
 
           const priceText = (
             listing?.querySelector('.obj_price') as HTMLElement
@@ -37,7 +41,12 @@ export const grunoVerhuurScraper = async () => {
 
           let price = parseInt(priceText.replace(/[^\d]/g, ''), 10);
 
-          if (isNaN(price) || price >= settings.maxPrice) {
+          if (
+            isNaN(price) ||
+            price >= settings.maxPrice ||
+            sizeNumber < settings.minSize ||
+            price <= settings.minPrice
+          ) {
             return;
           }
 
@@ -59,7 +68,7 @@ export const grunoVerhuurScraper = async () => {
         .filter((property) => property !== undefined);
     }, settings);
 
-    await browser.close();
+    // await browser.close();
     compareAndWrite(folder, properties);
     scraperCompletedLog(folder);
   } catch (err) {

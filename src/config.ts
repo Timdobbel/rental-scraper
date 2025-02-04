@@ -8,4 +8,5 @@ export const launchOptions: LaunchOptions = {
 export const settings = {
   minSize: 45,
   maxPrice: 1500,
+  minPrice: 600,
 };
