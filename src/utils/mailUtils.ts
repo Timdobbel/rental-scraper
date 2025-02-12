@@ -20,7 +20,7 @@ export const sendEmail = (emailContent: string, subject: string) => {
 
   const mailOptions = {
     from: 'xediixx@gmail.com',
-    to,
+    to: developmentMailList,
     subject: subject,
     text: emailContent,
   };

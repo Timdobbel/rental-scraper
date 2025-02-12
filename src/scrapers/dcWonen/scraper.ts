@@ -28,8 +28,6 @@ export const dcWonenScraper = async () => {
         // @ts-expect-error
         const title = titleElement ? titleElement.href.trim() : 'No link';
         const status =
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           listing.querySelector('.label-status')?.innerText.trim() ||
           'No status';
         return { title, status };

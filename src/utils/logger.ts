@@ -26,9 +26,13 @@ export function scraperCompletedLog(
     );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-expliciBesteany
 export const logErrorToFile = (error: any, logFilePath: string) => {
-  const timestamp = new Date().toISOString();
-  const errorMessage = `${timestamp} - Error: ${error.message || error}\nStack: ${error.stack || 'No stack trace available'}\n\n`;
-  fs.appendFileSync(logFilePath, errorMessage, 'utf8');
+  try {
+    const timestamp = new Date().toISOString();
+    const errorMessage = `${timestamp} - Error: ${error.message || error}\nStack: ${error.stack || 'No stack trace available'}\n\n`;
+    fs.appendFileSync(logFilePath, errorMessage, 'utf8');
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -1,15 +1,6 @@
-import { groningenVastgoed } from './scrapers/050vastgoed/scraper';
-import { dcWonenScraper } from './scrapers/dcWonen/scraper';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
-import { pandomoScraper } from './scrapers/pandomo/scraper';
-import { tuitmanvastgoedScraper } from './scrapers/tuitmanvastgoed/scraper';
-import { campusGroningenScraper } from './scrapers/campusGroningen/scraper';
-import { maxxhurenScraper } from './scrapers/maxxhuren/scraper';
-import { eentweedrieWonenScraper } from './scrapers/123wonen/scraper';
-import { grunoVerhuurScraper } from './scrapers/grunoVerhuur/scraper';
-import { househuntingScraper } from './scrapers/househunting/scraper';
-import { bultenvastgoedScaper } from './scrapers/bultenvastgoed/scraper';
+import { scrapers } from './config';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -29,21 +20,6 @@ const printBreakline = (count: number) => {
   );
 };
 
-// List of all scrapers
-// `npm run dev` only runs the first one
-const scrapers = [
-  grunoVerhuurScraper,
-  bultenvastgoedScaper,
-  maxxhurenScraper,
-  pandomoScraper,
-  groningenVastgoed,
-  dcWonenScraper,
-  tuitmanvastgoedScraper,
-  campusGroningenScraper,
-  eentweedrieWonenScraper,
-  househuntingScraper,
-];
-
 const runScrapers = async () => {
   for (const scraper of scrapers) {
     await scraper();
@@ -51,7 +27,7 @@ const runScrapers = async () => {
 
   printBreakline(count++);
 
-  // Schedule next execution only after completion
+  // Schedule next execution only after compfvv  letion
   setTimeout(runScrapers, 45000);
 };
 

@@ -18,6 +18,7 @@ export const campusGroningenScraper = async () => {
     const links = await page.$$eval('.row.matchheight-container a', (anchors) =>
       anchors.map((a) => a.href),
     );
+
     const results: Properties = [];
 
     for (const link of links) {
@@ -29,8 +30,8 @@ export const campusGroningenScraper = async () => {
 
       try {
         const status = await newPage.$eval(
-          '.table.table-condensed button',
-          (button) => button.innerText.trim(),
+          '.table.table-condensed a',
+          (anchor) => anchor.innerText.trim(),
         );
 
         if (status === 'Deelnemen' || status === 'Volgeboekt') {
