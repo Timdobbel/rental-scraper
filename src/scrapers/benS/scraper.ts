@@ -3,50 +3,42 @@ import { logErrorToFile, scraperCompletedLog } from '../../utils/logger';
 import { launchOptions, settings } from '../../config';
 import { compareAndWrite } from '../../utils/fileUtils';
 import path from 'path';
-import { sleep } from '../../utils/sleep';
 
-const folder = 'lamberink';
+const folder = 'benS';
 
-export const lamberinkScraper = async () => {
+export const benSScraper = async () => {
   try {
     const browser = await puppeteer.launch(launchOptions);
     const page = await browser.newPage();
 
     await page.goto(
-      'https://lamberink.nl/wonen/aanbod?buy_rent=rent&object_type=appartement&search=Groningen&order_by=created_at-desc&page=1',
+      'https://www.bensverhuurenbeheer.nl/aanbod/status=verhuurd/woonplaats=groningen',
       {
         waitUntil: 'domcontentloaded',
         timeout: 10000,
       },
     );
 
-    // Wait a bit before removing the element and continuing
-    await sleep(500);
-
     // Get the listings
     const properties = await page.evaluate(({ minSize }) => {
-      const unwantedElement = document.querySelector(
-        '#objects-app > div.index.view-visible > div > div > div > div',
-      );
-      if (unwantedElement) {
-        unwantedElement.remove();
-      }
-
-      return Array.from(document.querySelectorAll('.card--object--properties'))
+      return Array.from(document.querySelectorAll('#verhuur > a'))
         .map((listing) => {
-          const titleElement = listing.querySelector('a');
+          const titleElement = listing;
 
+          const status = listing.querySelector('figure > div')?.innerText;
+
+          console.log(status);
           const title = titleElement?.href
             ? titleElement.href.trim()
             : 'No link';
 
-          return { title, status: '?' };
+          return { title, status };
         })
         .filter((item) => item !== undefined);
     }, settings);
 
     // Close the browser
-    await browser.close();
+    // await browser.close();
 
     // Write the results and log completion
     compareAndWrite(folder, properties);
