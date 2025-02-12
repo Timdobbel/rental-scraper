@@ -23,18 +23,15 @@ export const lamberinkScraper = async () => {
     // Wait a bit before removing the element and continuing
     await sleep(500);
 
-    // Remove the unwanted element
-    await page.evaluate(() => {
+    // Get the listings
+    const properties = await page.evaluate(({ minSize }) => {
       const unwantedElement = document.querySelector(
         '#objects-app > div.index.view-visible > div > div > div > div',
       );
       if (unwantedElement) {
         unwantedElement.remove();
       }
-    });
 
-    // Get the listings
-    const properties = await page.evaluate(({ minSize }) => {
       return Array.from(document.querySelectorAll('.card--object--properties'))
         .map((listing) => {
           const titleElement = listing.querySelector('a');
@@ -49,7 +46,7 @@ export const lamberinkScraper = async () => {
     }, settings);
 
     // Close the browser
-    await browser.close();
+    // await browser.close();
 
     // Write the results and log completion
     compareAndWrite(folder, properties);

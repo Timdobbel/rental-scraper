@@ -13,6 +13,7 @@ import { groningenVastgoed } from './scrapers/050vastgoed/scraper';
 import { dcWonenScraper } from './scrapers/dcWonen/scraper';
 import { solideVastgoedScraper } from './scrapers/solideVastgoed/scraper';
 import { lamberinkScraper } from './scrapers/lamberink/scraper';
+import { vanDerMeulenScraper } from './scrapers/vanDerMeulen/scraper';
 
 // Get user's home directory dynamically
 const homeDir = os.homedir();
@@ -38,6 +39,7 @@ export const settings = {
 // List of all scrapers
 // `npm run dev` only runs the first one
 export const scrapers = [
+  vanDerMeulenScraper,
   lamberinkScraper,
   solideVastgoedScraper,
   campusGroningenScraper,
