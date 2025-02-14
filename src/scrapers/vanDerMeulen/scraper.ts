@@ -12,7 +12,7 @@ export const vanDerMeulenScraper = async () => {
     const page = await browser.newPage();
 
     await page.goto(
-      'https://www.vandermeulenmakelaars.nl/huurwoningen/?_plaats=groningen&_prijsbereik=775.00%2C1411.00',
+      'https://www.vandermeulenmakelaars.nl/huurwoningen/?_plaats=groningen&_status=beschikbaar&_prijsbereik=775.00%2C1411.00&a',
       {
         waitUntil: 'domcontentloaded',
         timeout: 10000,
@@ -29,13 +29,7 @@ export const vanDerMeulenScraper = async () => {
             ? titleElement.href.trim()
             : 'No link';
 
-          const statusElement = listing.querySelector('.aw_badge');
-          const status =
-            statusElement?.textContent?.trim() === 'Verhuurd'
-              ? 'Verhuurd'
-              : 'Mogelijk beschikbaar';
-
-          return { title, status };
+          return { title, status: 'Beschikbaar' };
         },
       );
     });
