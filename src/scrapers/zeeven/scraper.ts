@@ -39,7 +39,7 @@ export const zeevenScraper = async () => {
       );
     });
 
-    // await browser.close();
+    await browser.close();
     compareAndWrite(folder, properties);
     scraperCompletedLog(folder);
   } catch (err) {

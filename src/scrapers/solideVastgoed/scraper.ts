@@ -52,7 +52,7 @@ export const solideVastgoedScraper = async () => {
         .filter((item) => item !== undefined);
     }, settings);
 
-    // await browser.close();
+    await browser.close();
     compareAndWrite(folder, properties);
     scraperCompletedLog(folder);
   } catch (err) {
