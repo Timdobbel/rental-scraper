@@ -38,7 +38,7 @@ export const benSScraper = async () => {
     }, settings);
 
     // Close the browser
-    // await browser.close();
+    await browser.close();
 
     // Write the results and log completion
     compareAndWrite(folder, properties);
