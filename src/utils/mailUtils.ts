@@ -16,15 +16,11 @@ export const sendEmail = (emailContent: string, subject: string) => {
   const to =
     process.env.NODE_ENV === 'development'
       ? developmentMailList
-      : [
-          'familydice@ziggo.nl',
-          'kyraevers23@gmail.com',
-          ...developmentMailList,
-        ];
+      : ['kyraevers23@gmail.com', ...developmentMailList];
 
   const mailOptions = {
     from: 'xediixx@gmail.com',
-    to: to,
+    to: developmentMailList,
     subject: subject,
     text: emailContent,
   };

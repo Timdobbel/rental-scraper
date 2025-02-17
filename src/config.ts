@@ -17,6 +17,7 @@ import { vanDerMeulenScraper } from './scrapers/vanDerMeulen/scraper';
 import { benSScraper } from './scrapers/benS/scraper';
 import { rotsVastgoedScraper } from './scrapers/rotsVastgoed/scraper';
 import { zeevenScraper } from './scrapers/zeeven/scraper';
+import { stadeoVastgoedScraper } from './scrapers/stadeoVastgoed/scraper';
 
 // Get user's home directory dynamically
 const homeDir = os.homedir();
@@ -27,10 +28,10 @@ const extensionPath = path.join(homeDir, 'rental-scraper', 'src', '3.5.1_0');
 export const launchOptions: LaunchOptions = {
   headless: process.env.NODE_ENV === 'development' ? false : true,
   slowMo: 0,
-  args: [
-    `--disable-extensions-except=${extensionPath}`,
-    `--load-extension=${extensionPath}`,
-  ],
+  // args: [
+  //   `--disable-extensions-except=${extensionPath}`,
+  //   `--load-extension=${extensionPath}`,
+  // ],
 };
 
 export const settings = {
@@ -42,6 +43,7 @@ export const settings = {
 // List of all scrapers
 // `npm run dev` only runs the first one
 export const scrapers = [
+  stadeoVastgoedScraper,
   zeevenScraper,
   rotsVastgoedScraper,
   benSScraper,

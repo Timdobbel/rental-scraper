@@ -3,7 +3,6 @@ import { logErrorToFile, scraperCompletedLog } from '../../utils/logger';
 import { launchOptions } from '../../config';
 import { compareAndWrite } from '../../utils/fileUtils';
 import path from 'path';
-import { sleep } from '../../utils/sleep';
 
 const folder = 'kpmakelaars';
 
